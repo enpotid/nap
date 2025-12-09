@@ -1,0 +1,9 @@
+XOR I0 I1
+OUT 0
+
+XOR
+   F0 F1
+   F0 0
+   F1 0
+   1 2
+END
