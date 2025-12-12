@@ -18,8 +18,7 @@ fn main() {
         return;
     }
 
-    contents = contents.to_uppercase();
-    lexer::tokenize();
+    let tokens = lexer::tokenize(&contents);
 
-    println!("{}", contents);
+    println!("{:?}", tokens);
 }
