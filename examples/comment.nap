@@ -2,4 +2,4 @@ if it is not an uppercase letter, a digit, or a special symbol used in numbers, 
 therefore, this code works correctly
 
 I0 I1
-OUT 3
+OUT 0
