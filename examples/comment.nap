@@ -1,5 +1,0 @@
-if it is not an uppercase letter, a digit, or a special symbol used in numbers, it will be treated as a comment
-therefore, this code works correctly
-
-I0 I1
-OUT 0

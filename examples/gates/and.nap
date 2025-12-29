@@ -1,7 +1,7 @@
 AND I0 I1
 OUT 0
 
-AND
+AND {
    F0 F1
    0 0
-END
+}

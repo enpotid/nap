@@ -35,16 +35,20 @@ pub fn tokenize(src: &str) -> Vec<Token> {
                     }
                 }
 
-                if buffer == "end" {
-                    tokens.push(Token {
-                        kind: TokenKind::FnEnd,
-                    });
-                } else {
-                    tokens.push(Token {
-                        kind: TokenKind::Ident(buffer.clone()),
-                    });
-                }
+                tokens.push(Token {
+                    kind: TokenKind::Ident(buffer.clone()),
+                });
                 buffer.clear();
+            }
+            '{' => {
+                tokens.push(Token {
+                    kind: TokenKind::FnSymbol { is_start: true },
+                });
+            }
+            '}' => {
+                tokens.push(Token {
+                    kind: TokenKind::FnSymbol { is_start: false },
+                });
             }
             '0'..='9' | '.' | ':' => {
                 tokens.push(Token {
