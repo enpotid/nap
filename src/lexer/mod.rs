@@ -7,12 +7,12 @@ pub fn tokenize(src: &str) -> Vec<Token> {
 
     'n: while let Some(c) = chars.next() {
         match c {
-            'A'..='Z' | '_' => {
+            _ if c.is_alphabetic() || c == '_' => {
                 let mut buffer = String::from(c);
 
                 while let Some(&c2) = chars.peek() {
                     match c2 {
-                        'A'..='Z' | '_' => {
+                        _ if c.is_alphabetic() || c == '_' => {
                             buffer.push(c2);
                             chars.next();
                         }
@@ -35,7 +35,7 @@ pub fn tokenize(src: &str) -> Vec<Token> {
                     }
                 }
 
-                if buffer == "END" {
+                if buffer == "end" {
                     tokens.push(Token {
                         kind: TokenKind::FnEnd,
                     });

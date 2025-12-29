@@ -5,7 +5,7 @@ pub struct Token {
 
 #[derive(Debug)]
 pub enum TokenKind {
-    Ident(String),                       // XOR, AND,,,
+    Ident(String),                       // xor, and,,,
     Ref { kind: String, index: String }, // "F0", "I0", "0", "0.1"...
-    FnEnd,                               // END
+    FnEnd,                               // end
 }
