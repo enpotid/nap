@@ -29,11 +29,8 @@ pub fn tokenize(src: &str) -> Vec<Token> {
                             buffer.clear();
                             continue 'n;
                         }
-                        _ if c2.is_whitespace() => {
-                            break;
-                        }
                         _ => {
-                            todo!() // unexpected character
+                            break;
                         }
                     }
                 }
