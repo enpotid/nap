@@ -1,0 +1,14 @@
+fnA {
+    fnB {
+        fnC {
+            F0 F1
+        }
+
+        fnC F0 F1
+    }
+
+    fnB F0 F1
+}
+
+fnA I0 I1
+OUT 0
