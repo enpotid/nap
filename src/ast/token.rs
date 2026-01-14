@@ -7,5 +7,6 @@ pub struct Token {
 pub enum TokenKind {
     Ident(String),                       // xor, and,,,
     Ref { kind: String, index: String }, // "F0", "I0", "0", "0.1"...
-    FnSymbol { is_start: bool },         // {, }
+    OpenBrace,                           // {
+    CloseBrace,                          // }
 }

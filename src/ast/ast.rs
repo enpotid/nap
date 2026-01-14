@@ -12,12 +12,7 @@ pub struct Item {
 
 #[derive(Debug)]
 pub enum ItemKind {
-    Fn {
-        ident: Token,
-        block: Vec<Box<Item>>,
-    },
-    Call {
-        ident: Option<Token>,
-        args: Vec<Token>,
-    },
+    Fn { ident: Token, block: Vec<Box<Item>> },
+    Call { ident: Token },
+    Arg { ident: Token },
 }

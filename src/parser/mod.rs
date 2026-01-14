@@ -2,45 +2,48 @@ use crate::ast::*;
 use std::{iter::Peekable, slice::Iter};
 
 pub fn parse(tokens: &Vec<Token>) -> Computer {
-    let mut items = Vec::new();
     let mut tokens_iter = tokens.iter().peekable();
 
+    Computer {
+        items: parse_block(&mut tokens_iter, true),
+    }
+}
+
+pub fn parse_block(tokens_iter: &mut Peekable<Iter<'_, Token>>, eof: bool) -> Vec<Box<Item>> {
+    let mut items = Vec::new();
+
     while let Some(t) = tokens_iter.next() {
-        if let TokenKind::Ident(ident) = t.kind.clone() {
-            if let Some(t2) = tokens_iter.peek() {
-                if let TokenKind::Ref { .. } = t2.kind.clone() {
-                    items.push(Box::new(parse_call(&tokens_iter, ident)));
-                } else if let TokenKind::FnSymbol { .. } = t2.kind.clone() {
-                    items.push(Box::new(parse_fn(&tokens_iter, ident)));
-                } else {
-                    // TODO
-                }
-            } else {
-                // TODO
-            }
-        } else if let TokenKind::Ref { .. } = t.kind.clone() {
-            if let Some(&t2) = tokens_iter.peek() {
-                if let TokenKind::Ref { .. } = t2.kind.clone() {
+        match t.kind {
+            TokenKind::Ident(_) => {
+                if let Some(t2) = tokens_iter.peek()
+                    && let TokenKind::OpenBrace = t2.kind
+                {
+                    tokens_iter.next();
                     items.push(Box::new(Item {
-                        kind: ItemKind::Call {
-                            ident: None,
-                            args: vec![t.clone(), t2.clone()],
+                        kind: ItemKind::Fn {
+                            ident: t.clone(),
+                            block: parse_block(tokens_iter, false),
                         },
                     }));
                 } else {
-                    // TODO
+                    items.push(Box::new(Item {
+                        kind: ItemKind::Call { ident: t.clone() },
+                    }));
                 }
-            } else {
-                // TODO
             }
-        } else {
-            // TODO
+            TokenKind::Ref { .. } => {
+                items.push(Box::new(Item {
+                    kind: ItemKind::Arg { ident: t.clone() },
+                }));
+            }
+            TokenKind::CloseBrace if !eof => return items,
+            _ => todo!(), // unexpected token
         }
     }
 
-    Computer { items }
+    if eof {
+        return items;
+    } else {
+        todo!(); // unexpected EOF while parsing function block (missing '}')
+    }
 }
-
-pub fn parse_call(tokens_iter: &Peekable<Iter<'_, Token>>, ident: String) -> Item {}
-
-pub fn parse_fn(tokens_iter: &Peekable<Iter<'_, Token>>, ident: String) -> Item {}

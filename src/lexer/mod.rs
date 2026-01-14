@@ -42,12 +42,12 @@ pub fn tokenize(src: &str) -> Vec<Token> {
             }
             '{' => {
                 tokens.push(Token {
-                    kind: TokenKind::FnSymbol { is_start: true },
+                    kind: TokenKind::OpenBrace,
                 });
             }
             '}' => {
                 tokens.push(Token {
-                    kind: TokenKind::FnSymbol { is_start: false },
+                    kind: TokenKind::CloseBrace,
                 });
             }
             '0'..='9' | '.' | ':' => {
