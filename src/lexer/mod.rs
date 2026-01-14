@@ -12,7 +12,7 @@ pub fn tokenize(src: &str) -> Vec<Token> {
 
                 while let Some(&c2) = chars.peek() {
                     match c2 {
-                        _ if c.is_alphabetic() || c == '_' => {
+                        _ if c2.is_alphabetic() || c2 == '_' => {
                             buffer.push(c2);
                             chars.next();
                         }
