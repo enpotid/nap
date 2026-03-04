@@ -23,5 +23,5 @@ fn main() {
     let tokens = lexer::tokenize(&contents);
     let computer = parser::parse(&tokens);
 
-    println!("{:?}", computer);
+    println!("{:#?}", computer);
 }
